@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .todo-list {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .add-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: transform 0.2s ease;
+        }
+        .add-btn:hover {
+            background-color: #45a049;
+        }
+        .add-btn:active {
+            transform: scale(0.95);
+        }
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: #f8f8f8;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            transition: all 0.2s ease;
+        }
+        .todo-item:hover {
+            background-color: #e0e0e0;
+            transform: translateX(5px);
+        }
+        .todo-item input[type="checkbox"] {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .completed {
+            background-color: #f0f0f0;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="todo-list">
+        <button class="add-btn">Add Task</button>
+        <div id="todoList"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const addBtn = document.querySelector('.add-btn');
+            const todoList = document.getElementById('todoList');
+            
+            addBtn.addEventListener('click', () => {
+                const newTodo = document.createElement('div');
+                newTodo.className = 'todo-item';
+                
+                // Add checkbox and text input for search
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'todo-checkbox';
+                
+                const todoText = document.createElement('span');
+                todoText.content = prompt('Enter a new task:');
+                
+                newTodo.appendChild(checkbox);
+                newTodo.appendChild(todoText);
+                
+                // Add click handler for todo items
+                newTodo.addEventListener('click', () => {
+                    checkbox.checked = !checkbox.checked;
+                    if (todoText.content === 'completed') {
+                        newTodo.classList.add('completed');
+                    } else {
+                        newTodo.classList.remove('completed');
+                    }
+                });
+                
+                todoList.appendChild(newTodo);
+            });
+        });
+    </script>
+</body>
+</html>
